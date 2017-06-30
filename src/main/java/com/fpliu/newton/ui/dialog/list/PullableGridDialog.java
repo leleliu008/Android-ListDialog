@@ -2,14 +2,13 @@ package com.fpliu.newton.ui.dialog.list;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
-import com.fpliu.newton.ui.base.UIUtil;
 import com.fpliu.newton.ui.dialog.CustomDialog;
-import com.fpliu.newton.ui.list.IPullableList;
+import com.fpliu.newton.ui.list.IPullableGrid;
 import com.fpliu.newton.ui.list.ItemAdapter;
 import com.fpliu.newton.ui.list.PullableGridImpl;
 import com.fpliu.newton.ui.pullable.PullableGridView;
@@ -26,22 +25,23 @@ import java.util.List;
  * @author 792793182@qq.com 2016-06-06.
  */
 public abstract class PullableGridDialog<T> extends CustomDialog
-        implements IPullableList<T, PullableGridView>,
+        implements IPullableGrid<T, PullableGridView>,
         AdapterView.OnItemClickListener, RefreshOrLoadMoreCallback<PullableGridView> {
 
-    private IPullableList<T, PullableGridView> pullableList;
+    private IPullableGrid<T, PullableGridView> pullableGrid;
 
     public PullableGridDialog(Activity activity) {
         super(activity);
+    }
 
-        setWindowBackgroundColor(Color.WHITE);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        setWindowWidth(UIUtil.getScreenWidth(activity));
-
-        pullableList = new PullableGridImpl<>();
-        setContentView(pullableList.init(activity));
+        pullableGrid = new PullableGridImpl<>();
+        setContentView(pullableGrid.init(getActivity()));
         setOnItemClickListener(this);
-        setItemAdapterIfEmpty(new ItemAdapter<T>(null) {
+        setItemAdapter(new ItemAdapter<T>(null) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 return PullableGridDialog.this.getItemView(position, convertView, parent);
@@ -60,7 +60,6 @@ public abstract class PullableGridDialog<T> extends CustomDialog
         setRefreshOrLoadMoreCallback(this);
     }
 
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -68,131 +67,131 @@ public abstract class PullableGridDialog<T> extends CustomDialog
 
     @Override
     public void canPullDown(boolean canPullDown) {
-        pullableList.canPullDown(canPullDown);
+        pullableGrid.canPullDown(canPullDown);
     }
 
     @Override
     public void canPullUp(boolean canPullUp) {
-        pullableList.canPullUp(canPullUp);
+        pullableGrid.canPullUp(canPullUp);
     }
 
     @Override
     public void finishRequestSuccess(Type type, List<T> items) {
-        pullableList.finishRequestSuccess(type, items);
+        pullableGrid.finishRequestSuccess(type, items);
     }
 
     @Override
     public void setRefreshOrLoadMoreCallback(RefreshOrLoadMoreCallback callback) {
-        pullableList.setRefreshOrLoadMoreCallback(callback);
+        pullableGrid.setRefreshOrLoadMoreCallback(callback);
     }
 
     @Override
     public View init(Context context) {
-        return pullableList.init(context);
+        return pullableGrid.init(context);
     }
 
     @Override
     public PullableViewContainer<PullableGridView> getPullableViewContainer() {
-        return pullableList.getPullableViewContainer();
-    }
-
-    @Override
-    public void setItemAdapterIfEmpty(ItemAdapter<T> itemAdapter) {
-        pullableList.setItemAdapterIfEmpty(itemAdapter);
+        return pullableGrid.getPullableViewContainer();
     }
 
     @Override
     public void setItemAdapter(ItemAdapter<T> itemAdapter) {
-        pullableList.setItemAdapter(itemAdapter);
+        pullableGrid.setItemAdapter(itemAdapter);
     }
 
     @Override
     public ItemAdapter<T> getItemAdapter() {
-        return pullableList.getItemAdapter();
+        return pullableGrid.getItemAdapter();
     }
 
     @Override
     public void setItems(List<T> items) {
-        pullableList.setItems(items);
+        pullableGrid.setItems(items);
     }
 
     @Override
     public List<T> getItems() {
-        return pullableList.getItems();
+        return pullableGrid.getItems();
     }
 
     @Override
     public boolean addAll(Collection<? extends T> collection) {
-        return pullableList.addAll(collection);
+        return pullableGrid.addAll(collection);
     }
 
     @Override
     public boolean add(T item) {
-        return pullableList.add(item);
+        return pullableGrid.add(item);
     }
 
     @Override
     public T set(int location, T item) {
-        return pullableList.set(location, item);
+        return pullableGrid.set(location, item);
     }
 
     @Override
     public boolean remove(T item) {
-        return pullableList.remove(item);
+        return pullableGrid.remove(item);
     }
 
     @Override
     public T getItem(int position) {
-        return pullableList.getItem(position);
+        return pullableGrid.getItem(position);
     }
 
     @Override
     public int getCount() {
-        return pullableList.getCount();
+        return pullableGrid.getCount();
     }
 
     @Override
     public void clear() {
-        pullableList.clear();
+        pullableGrid.clear();
     }
 
     @Override
     public int getItemViewTypeCount() {
-        return pullableList.getItemViewTypeCount();
+        return pullableGrid.getItemViewTypeCount();
     }
 
     @Override
     public int getItemViewType(int position) {
-        return pullableList.getItemViewType(position);
+        return pullableGrid.getItemViewType(position);
     }
 
     @Override
     public void setDividerHeight(int height) {
-        pullableList.setDividerHeight(height);
+        pullableGrid.setDividerHeight(height);
     }
 
     @Override
     public void setViewBeforeBody(int layoutId) {
-        pullableList.setViewBeforeBody(layoutId);
+        pullableGrid.setViewBeforeBody(layoutId);
     }
 
     @Override
     public void setViewBeforeBody(View view) {
-        pullableList.setViewBeforeBody(view);
+        pullableGrid.setViewBeforeBody(view);
     }
 
     @Override
     public void setViewAfterBody(int layoutId) {
-        pullableList.setViewAfterBody(layoutId);
+        pullableGrid.setViewAfterBody(layoutId);
     }
 
     @Override
     public void setViewAfterBody(View view) {
-        pullableList.setViewAfterBody(view);
+        pullableGrid.setViewAfterBody(view);
     }
 
     @Override
     public void setOnItemClickListener(AdapterView.OnItemClickListener listener) {
-        pullableList.setOnItemClickListener(listener);
+        pullableGrid.setOnItemClickListener(listener);
+    }
+
+    @Override
+    public void setNumColumns(int numColumns) {
+        pullableGrid.setNumColumns(numColumns);
     }
 }

@@ -2,12 +2,11 @@ package com.fpliu.newton.ui.dialog.list;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
-import com.fpliu.newton.ui.base.UIUtil;
 import com.fpliu.newton.ui.dialog.CustomDialog;
 import com.fpliu.newton.ui.list.IPullableList;
 import com.fpliu.newton.ui.list.ItemAdapter;
@@ -33,15 +32,16 @@ public abstract class PullableListDialog<T> extends CustomDialog
 
     public PullableListDialog(Activity activity) {
         super(activity);
+    }
 
-        setWindowBackgroundColor(Color.WHITE);
-
-        setWindowWidth(UIUtil.getScreenWidth(activity));
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         pullableList = new PullableListImpl<>();
-        setContentView(pullableList.init(activity));
+        setContentView(pullableList.init(getActivity()));
         setOnItemClickListener(this);
-        setItemAdapterIfEmpty(new ItemAdapter<T>(null) {
+        setItemAdapter(new ItemAdapter<T>(null) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 return PullableListDialog.this.getItemView(position, convertView, parent);
@@ -59,7 +59,6 @@ public abstract class PullableListDialog<T> extends CustomDialog
         });
         setRefreshOrLoadMoreCallback(this);
     }
-
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -94,11 +93,6 @@ public abstract class PullableListDialog<T> extends CustomDialog
     @Override
     public PullableViewContainer<PullableListView> getPullableViewContainer() {
         return pullableList.getPullableViewContainer();
-    }
-
-    @Override
-    public void setItemAdapterIfEmpty(ItemAdapter<T> itemAdapter) {
-        pullableList.setItemAdapterIfEmpty(itemAdapter);
     }
 
     @Override
