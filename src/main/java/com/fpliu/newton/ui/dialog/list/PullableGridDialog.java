@@ -161,6 +161,11 @@ public abstract class PullableGridDialog<T> extends CustomDialog
     }
 
     @Override
+    public void notifyDataSetChanged() {
+        pullableGrid.notifyDataSetChanged();
+    }
+
+    @Override
     public void setDividerHeight(int height) {
         pullableGrid.setDividerHeight(height);
     }

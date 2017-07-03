@@ -161,6 +161,11 @@ public abstract class PullableListDialog<T> extends CustomDialog
     }
 
     @Override
+    public void notifyDataSetChanged() {
+        pullableList.notifyDataSetChanged();
+    }
+
+    @Override
     public void setDividerHeight(int height) {
         pullableList.setDividerHeight(height);
     }
