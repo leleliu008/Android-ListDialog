@@ -166,6 +166,11 @@ public abstract class PullableGridDialog<T> extends CustomDialog
     }
 
     @Override
+    public void refresh() {
+        pullableGrid.refresh();
+    }
+
+    @Override
     public void setDividerHeight(int height) {
         pullableGrid.setDividerHeight(height);
     }
