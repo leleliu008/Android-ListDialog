@@ -81,6 +81,11 @@ public abstract class PullableGridDialog<T> extends CustomDialog
     }
 
     @Override
+    public void finishRequestSuccess(Type type, List<T> items, String s) {
+        pullableGrid.finishRequestSuccess(type, items, s);
+    }
+
+    @Override
     public void setRefreshOrLoadMoreCallback(RefreshOrLoadMoreCallback callback) {
         pullableGrid.setRefreshOrLoadMoreCallback(callback);
     }
