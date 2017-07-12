@@ -201,6 +201,16 @@ public abstract class PullableGridDialog<T> extends CustomDialog
     }
 
     @Override
+    public void addHeaderView(View view, Object o, boolean b) {
+        //do nothing
+    }
+
+    @Override
+    public void addFooterView(View view, Object o, boolean b) {
+        //do nothing
+    }
+
+    @Override
     public void setOnItemClickListener(AdapterView.OnItemClickListener listener) {
         pullableGrid.setOnItemClickListener(listener);
     }
