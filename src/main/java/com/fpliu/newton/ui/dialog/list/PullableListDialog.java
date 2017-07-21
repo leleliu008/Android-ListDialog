@@ -6,13 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.fpliu.newton.ui.dialog.CustomDialog;
 import com.fpliu.newton.ui.list.IPullableList;
 import com.fpliu.newton.ui.list.ItemAdapter;
 import com.fpliu.newton.ui.list.PullableListImpl;
 import com.fpliu.newton.ui.pullable.PullType;
-import com.fpliu.newton.ui.pullable.PullableListView;
 import com.fpliu.newton.ui.pullable.PullableViewContainer;
 import com.fpliu.newton.ui.pullable.RefreshOrLoadMoreCallback;
 
@@ -25,10 +25,10 @@ import java.util.List;
  * @author 792793182@qq.com 2016-06-06.
  */
 public abstract class PullableListDialog<T> extends CustomDialog
-        implements IPullableList<T, PullableListView>,
-        AdapterView.OnItemClickListener, RefreshOrLoadMoreCallback<PullableListView> {
+        implements IPullableList<T, ListView>,
+        AdapterView.OnItemClickListener, RefreshOrLoadMoreCallback<ListView> {
 
-    private IPullableList<T, PullableListView> pullableList;
+    private IPullableList<T, ListView> pullableList;
 
     public PullableListDialog(Activity activity) {
         super(activity);
@@ -117,7 +117,7 @@ public abstract class PullableListDialog<T> extends CustomDialog
     }
 
     @Override
-    public PullableViewContainer<PullableListView> getPullableViewContainer() {
+    public PullableViewContainer<ListView> getPullableViewContainer() {
         return pullableList.getPullableViewContainer();
     }
 
