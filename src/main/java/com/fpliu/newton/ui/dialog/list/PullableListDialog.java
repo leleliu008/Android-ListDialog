@@ -11,10 +11,10 @@ import com.fpliu.newton.ui.dialog.CustomDialog;
 import com.fpliu.newton.ui.list.IPullableList;
 import com.fpliu.newton.ui.list.ItemAdapter;
 import com.fpliu.newton.ui.list.PullableListImpl;
+import com.fpliu.newton.ui.pullable.PullType;
 import com.fpliu.newton.ui.pullable.PullableListView;
 import com.fpliu.newton.ui.pullable.PullableViewContainer;
 import com.fpliu.newton.ui.pullable.RefreshOrLoadMoreCallback;
-import com.fpliu.newton.ui.pullable.Type;
 
 import java.util.Collection;
 import java.util.List;
@@ -97,12 +97,12 @@ public abstract class PullableListDialog<T> extends CustomDialog
     }
 
     @Override
-    public void finishRequestSuccess(Type type, List<T> items) {
+    public void finishRequestSuccess(PullType type, List<T> items) {
         pullableList.finishRequestSuccess(type, items);
     }
 
     @Override
-    public void finishRequestSuccess(Type type, List<T> items, String s) {
+    public void finishRequestSuccess(PullType type, List<T> items, String s) {
         pullableList.finishRequestSuccess(type, items, s);
     }
 
