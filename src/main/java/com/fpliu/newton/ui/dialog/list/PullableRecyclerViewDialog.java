@@ -77,8 +77,33 @@ public abstract class PullableRecyclerViewDialog<T, H extends ItemViewHolderAbs>
     }
 
     @Override
-    public void finishRequestSuccess(PullType type, List<T> items, String s) {
-        pullableRecyclerView.finishRequestSuccess(type, items, s);
+    public void finishRequestSuccessWithMessageIfItemsEmpty(PullType type, List<T> items, String messageWhenItemsEmpty) {
+        pullableRecyclerView.finishRequestSuccessWithMessageIfItemsEmpty(type, items, messageWhenItemsEmpty);
+    }
+
+    @Override
+    public void finishRequestSuccessWithMessageIfItemsEmpty(PullType type, List<T> items, int imageResIdWhenItemsEmpty) {
+        pullableRecyclerView.finishRequestSuccessWithMessageIfItemsEmpty(type, items, imageResIdWhenItemsEmpty);
+    }
+
+    @Override
+    public void finishRequestSuccessWithRefreshActionIfItemsEmpty(PullType type, List<T> items, String messageWhenItemsEmpty) {
+        pullableRecyclerView.finishRequestSuccessWithRefreshActionIfItemsEmpty(type, items, messageWhenItemsEmpty);
+    }
+
+    @Override
+    public void finishRequestSuccessWithRefreshActionIfItemsEmpty(PullType type, List<T> items, int imageResIdWhenItemsEmpty) {
+        pullableRecyclerView.finishRequestSuccessWithRefreshActionIfItemsEmpty(type, items, imageResIdWhenItemsEmpty);
+    }
+
+    @Override
+    public void finishRequestSuccessWithActionIfItemsEmpty(PullType type, List<T> items, String messageWhenItemsEmpty, String actionText, Runnable action) {
+        pullableRecyclerView.finishRequestSuccessWithActionIfItemsEmpty(type, items, messageWhenItemsEmpty, actionText, action);
+    }
+
+    @Override
+    public void finishRequestSuccessWithActionIfItemsEmpty(PullType type, List<T> items, int imageResIdWhenItemsEmpty, String actionText, Runnable action) {
+        pullableRecyclerView.finishRequestSuccessWithActionIfItemsEmpty(type, items, imageResIdWhenItemsEmpty, actionText, action);
     }
 
     @Override
@@ -147,18 +172,58 @@ public abstract class PullableRecyclerViewDialog<T, H extends ItemViewHolderAbs>
     }
 
     @Override
-    public boolean removeThenShowActionIfEmpty(T item, CharSequence tipText, String actionBtnText, Runnable action) {
-        return pullableRecyclerView.removeThenShowActionIfEmpty(item, tipText, actionBtnText, action);
-    }
-
-    @Override
     public void clear() {
         pullableRecyclerView.clear();
     }
 
     @Override
-    public void clearThenShowAction(CharSequence tipText, String actionBtnText, Runnable action) {
-        pullableRecyclerView.clearThenShowAction(tipText, actionBtnText, action);
+    public boolean removeThenShowMessageIfEmpty(T item, CharSequence message) {
+        return pullableRecyclerView.removeThenShowMessageIfEmpty(item, message);
+    }
+
+    @Override
+    public boolean removeThenShowImageIfEmpty(T item, int imageResId) {
+        return pullableRecyclerView.removeThenShowImageIfEmpty(item, imageResId);
+    }
+
+    @Override
+    public boolean removeThenShowRefreshActionIfEmpty(T item, CharSequence message) {
+        return pullableRecyclerView.removeThenShowRefreshActionIfEmpty(item, message);
+    }
+
+    @Override
+    public boolean removeThenShowRefreshActionIfEmpty(T item, int imageResId) {
+        return pullableRecyclerView.removeThenShowRefreshActionIfEmpty(item, imageResId);
+    }
+
+    @Override
+    public boolean removeThenShowActionIfEmpty(T item, CharSequence message, String actionText, Runnable action) {
+        return pullableRecyclerView.removeThenShowActionIfEmpty(item, message, actionText, action);
+    }
+
+    @Override
+    public void clearThenShowMessage(CharSequence message) {
+        pullableRecyclerView.clearThenShowMessage(message);
+    }
+
+    @Override
+    public void clearThenShowImage(int imageResId) {
+        pullableRecyclerView.clearThenShowImage(imageResId);
+    }
+
+    @Override
+    public void clearThenShowRefreshAction(CharSequence message) {
+        pullableRecyclerView.clearThenShowRefreshAction(message);
+    }
+
+    @Override
+    public void clearThenShowRefreshAction(int imageResId) {
+        pullableRecyclerView.clearThenShowRefreshAction(imageResId);
+    }
+
+    @Override
+    public void clearThenShowAction(CharSequence message, String actionText, Runnable action) {
+        pullableRecyclerView.clearThenShowAction(message, actionText, action);
     }
 
     @Override

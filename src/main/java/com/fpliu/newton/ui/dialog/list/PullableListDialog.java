@@ -102,8 +102,33 @@ public abstract class PullableListDialog<T> extends CustomDialog
     }
 
     @Override
-    public void finishRequestSuccess(PullType type, List<T> items, String s) {
-        pullableList.finishRequestSuccess(type, items, s);
+    public void finishRequestSuccessWithMessageIfItemsEmpty(PullType type, List<T> items, String messageWhenItemsEmpty) {
+        pullableList.finishRequestSuccessWithMessageIfItemsEmpty(type, items, messageWhenItemsEmpty);
+    }
+
+    @Override
+    public void finishRequestSuccessWithMessageIfItemsEmpty(PullType type, List<T> items, int imageResIdWhenItemsEmpty) {
+        pullableList.finishRequestSuccessWithMessageIfItemsEmpty(type, items, imageResIdWhenItemsEmpty);
+    }
+
+    @Override
+    public void finishRequestSuccessWithRefreshActionIfItemsEmpty(PullType type, List<T> items, String messageWhenItemsEmpty) {
+        pullableList.finishRequestSuccessWithRefreshActionIfItemsEmpty(type, items, messageWhenItemsEmpty);
+    }
+
+    @Override
+    public void finishRequestSuccessWithRefreshActionIfItemsEmpty(PullType type, List<T> items, int imageResIdWhenItemsEmpty) {
+        pullableList.finishRequestSuccessWithRefreshActionIfItemsEmpty(type, items, imageResIdWhenItemsEmpty);
+    }
+
+    @Override
+    public void finishRequestSuccessWithActionIfItemsEmpty(PullType type, List<T> items, String messageWhenItemsEmpty, String actionText, Runnable action) {
+        pullableList.finishRequestSuccessWithActionIfItemsEmpty(type, items, messageWhenItemsEmpty, actionText, action);
+    }
+
+    @Override
+    public void finishRequestSuccessWithActionIfItemsEmpty(PullType type, List<T> items, int imageResIdWhenItemsEmpty, String actionText, Runnable action) {
+        pullableList.finishRequestSuccessWithActionIfItemsEmpty(type, items, imageResIdWhenItemsEmpty, actionText, action);
     }
 
     @Override
@@ -159,6 +184,56 @@ public abstract class PullableListDialog<T> extends CustomDialog
     @Override
     public boolean remove(T item) {
         return pullableList.remove(item);
+    }
+
+    @Override
+    public boolean removeThenShowMessageIfEmpty(T item, CharSequence message) {
+        return pullableList.removeThenShowMessageIfEmpty(item, message);
+    }
+
+    @Override
+    public boolean removeThenShowImageIfEmpty(T item, int imageResId) {
+        return pullableList.removeThenShowImageIfEmpty(item, imageResId);
+    }
+
+    @Override
+    public boolean removeThenShowRefreshActionIfEmpty(T item, CharSequence message) {
+        return pullableList.removeThenShowRefreshActionIfEmpty(item, message);
+    }
+
+    @Override
+    public boolean removeThenShowRefreshActionIfEmpty(T item, int imageResId) {
+        return pullableList.removeThenShowRefreshActionIfEmpty(item, imageResId);
+    }
+
+    @Override
+    public boolean removeThenShowActionIfEmpty(T item, CharSequence message, String actionText, Runnable action) {
+        return pullableList.removeThenShowActionIfEmpty(item, message, actionText, action);
+    }
+
+    @Override
+    public void clearThenShowMessage(CharSequence message) {
+        pullableList.clearThenShowMessage(message);
+    }
+
+    @Override
+    public void clearThenShowImage(int imageResId) {
+        pullableList.clearThenShowImage(imageResId);
+    }
+
+    @Override
+    public void clearThenShowRefreshAction(CharSequence message) {
+        pullableList.clearThenShowRefreshAction(message);
+    }
+
+    @Override
+    public void clearThenShowRefreshAction(int imageResId) {
+        pullableList.clearThenShowRefreshAction(imageResId);
+    }
+
+    @Override
+    public void clearThenShowAction(CharSequence message, String actionText, Runnable action) {
+        pullableList.clearThenShowAction(message, actionText, action);
     }
 
     @Override
