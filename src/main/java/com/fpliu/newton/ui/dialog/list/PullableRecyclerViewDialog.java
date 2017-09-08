@@ -330,6 +330,11 @@ public abstract class PullableRecyclerViewDialog<T, H extends ItemViewHolderAbs>
     }
 
     @Override
+    public void setItemDecoration(RecyclerView.ItemDecoration itemDecoration) {
+        recyclerView.setItemDecoration(itemDecoration);
+    }
+
+    @Override
     public void addItemDecoration(RecyclerView.ItemDecoration itemDecoration) {
         recyclerView.addItemDecoration(itemDecoration);
     }
@@ -352,6 +357,16 @@ public abstract class PullableRecyclerViewDialog<T, H extends ItemViewHolderAbs>
     @Override
     public void setItemAnimator(RecyclerView.ItemAnimator itemAnimator) {
         recyclerView.setItemAnimator(itemAnimator);
+    }
+
+    @Override
+    public void asList() {
+        recyclerView.asList();
+    }
+
+    @Override
+    public void asGrid(int columnNumber) {
+        recyclerView.asGrid(columnNumber);
     }
 
     @Override
