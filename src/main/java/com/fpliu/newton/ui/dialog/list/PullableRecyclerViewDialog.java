@@ -230,6 +230,11 @@ public abstract class PullableRecyclerViewDialog<T, H extends ItemViewHolderAbs>
     }
 
     @Override
+    public RecyclerView getRecyclerView() {
+        return recyclerView.getRecyclerView();
+    }
+
+    @Override
     public void refresh() {
         pullable.refresh();
     }
