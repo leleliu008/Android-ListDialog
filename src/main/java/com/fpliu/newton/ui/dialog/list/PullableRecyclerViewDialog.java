@@ -33,6 +33,7 @@ public abstract class PullableRecyclerViewDialog<T, H extends ItemViewHolderAbs>
 
     private IPullable<T, RecyclerView> pullable;
     private IRecyclerView<T, H> recyclerView;
+    private boolean isBodyCanScroll;
 
     public PullableRecyclerViewDialog(Activity activity) {
         super(activity);
@@ -48,7 +49,7 @@ public abstract class PullableRecyclerViewDialog<T, H extends ItemViewHolderAbs>
 
         pullable = new PullableRecyclerViewImpl<>();
         recyclerView = (IRecyclerView<T, H>) pullable;
-        setContentView(recyclerView.init(getActivity()));
+        setContentView(recyclerView.init(getActivity(), isBodyCanScroll));
         setItemAdapter(new ItemAdapter<T, H>(null) {
 
             @Override
@@ -240,8 +241,8 @@ public abstract class PullableRecyclerViewDialog<T, H extends ItemViewHolderAbs>
     }
 
     @Override
-    public View init(Context context) {
-        return recyclerView.init(context);
+    public View init(Context context, boolean isBodyCanScroll) {
+        return recyclerView.init(context, isBodyCanScroll);
     }
 
     @Override
@@ -397,5 +398,9 @@ public abstract class PullableRecyclerViewDialog<T, H extends ItemViewHolderAbs>
     @Override
     public void onItemClick(H holder, int position, T item) {
 
+    }
+
+    public void setBodyCanScroll(boolean bodyCanScroll) {
+        isBodyCanScroll = bodyCanScroll;
     }
 }
