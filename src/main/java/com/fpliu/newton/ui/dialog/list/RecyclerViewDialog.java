@@ -11,7 +11,7 @@ import com.fpliu.newton.ui.dialog.CustomDialog;
 import com.fpliu.newton.ui.list.IRecyclerView;
 import com.fpliu.newton.ui.list.PullableRecyclerViewImpl;
 import com.fpliu.newton.ui.recyclerview.ItemAdapter;
-import com.fpliu.newton.ui.recyclerview.ItemViewHolderAbs;
+import com.fpliu.newton.ui.recyclerview.holder.ItemViewHolderAbs;
 import com.fpliu.newton.ui.recyclerview.OnItemClickListener;
 
 import java.util.ArrayList;
