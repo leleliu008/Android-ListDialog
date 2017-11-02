@@ -31,7 +31,6 @@ public abstract class PullableGridDialog<T> extends CustomDialog
 
     private IPullable<T, GridView> pullable;
     private IGrid<T, GridView> grid;
-    private boolean isBodyCanScroll;
 
     public PullableGridDialog(Activity activity) {
         super(activity);
@@ -47,7 +46,7 @@ public abstract class PullableGridDialog<T> extends CustomDialog
 
         pullable = new PullableGridImpl<>();
         grid = (IGrid<T, GridView>) pullable;
-        setContentView(grid.init(getActivity(), isBodyCanScroll));
+        setContentView(grid.init(getActivity()));
         setOnItemClickListener(this);
         setItemAdapter(new ItemAdapter<T>(null) {
             @Override
@@ -240,8 +239,8 @@ public abstract class PullableGridDialog<T> extends CustomDialog
     }
 
     @Override
-    public View init(Context context, boolean isBodyCanScroll) {
-        return grid.init(context, isBodyCanScroll);
+    public View init(Context context) {
+        return grid.init(context);
     }
 
     @Override
@@ -362,9 +361,5 @@ public abstract class PullableGridDialog<T> extends CustomDialog
     @Override
     public void setNumColumns(int numColumns) {
         grid.setNumColumns(numColumns);
-    }
-
-    public void setBodyCanScroll(boolean bodyCanScroll) {
-        isBodyCanScroll = bodyCanScroll;
     }
 }

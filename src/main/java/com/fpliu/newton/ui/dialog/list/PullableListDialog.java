@@ -44,8 +44,6 @@ public abstract class PullableListDialog<T> extends CustomDialog
 
     private boolean footerIsSelectable;
 
-    private boolean isBodyCanScroll;
-
     public PullableListDialog(Activity activity) {
         super(activity);
     }
@@ -60,7 +58,7 @@ public abstract class PullableListDialog<T> extends CustomDialog
 
         pullable = new PullableListImpl<>();
         list = (IList<T, ListView>) pullable;
-        setContentView(list.init(getActivity(), isBodyCanScroll));
+        setContentView(list.init(getActivity()));
         setOnItemClickListener(this);
 
         if (headerView != null) {
@@ -262,8 +260,8 @@ public abstract class PullableListDialog<T> extends CustomDialog
     }
 
     @Override
-    public View init(Context context, boolean isBodyCanScroll) {
-        return list.init(context, isBodyCanScroll);
+    public View init(Context context) {
+        return list.init(context);
     }
 
     @Override
@@ -400,9 +398,5 @@ public abstract class PullableListDialog<T> extends CustomDialog
     @Override
     public void setOnItemClickListener(AdapterView.OnItemClickListener listener) {
         list.setOnItemClickListener(listener);
-    }
-
-    public void setBodyCanScroll(boolean bodyCanScroll) {
-        isBodyCanScroll = bodyCanScroll;
     }
 }

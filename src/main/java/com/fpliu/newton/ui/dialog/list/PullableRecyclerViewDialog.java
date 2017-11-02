@@ -14,9 +14,9 @@ import com.fpliu.newton.ui.list.PullableRecyclerViewImpl;
 import com.fpliu.newton.ui.pullable.PullType;
 import com.fpliu.newton.ui.pullable.PullableViewContainer;
 import com.fpliu.newton.ui.pullable.RefreshOrLoadMoreCallback;
-import com.fpliu.newton.ui.recyclerview.ItemAdapter;
-import com.fpliu.newton.ui.recyclerview.holder.ItemViewHolderAbs;
 import com.fpliu.newton.ui.recyclerview.OnItemClickListener;
+import com.fpliu.newton.ui.recyclerview.adapter.ItemAdapter;
+import com.fpliu.newton.ui.recyclerview.holder.ItemViewHolderAbs;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,7 +33,6 @@ public abstract class PullableRecyclerViewDialog<T, H extends ItemViewHolderAbs>
 
     private IPullable<T, RecyclerView> pullable;
     private IRecyclerView<T, H> recyclerView;
-    private boolean isBodyCanScroll;
 
     public PullableRecyclerViewDialog(Activity activity) {
         super(activity);
@@ -49,7 +48,7 @@ public abstract class PullableRecyclerViewDialog<T, H extends ItemViewHolderAbs>
 
         pullable = new PullableRecyclerViewImpl<>();
         recyclerView = (IRecyclerView<T, H>) pullable;
-        setContentView(recyclerView.init(getActivity(), isBodyCanScroll));
+        setContentView(recyclerView.init(getActivity()));
         setItemAdapter(new ItemAdapter<T, H>(null) {
 
             @Override
@@ -241,8 +240,8 @@ public abstract class PullableRecyclerViewDialog<T, H extends ItemViewHolderAbs>
     }
 
     @Override
-    public View init(Context context, boolean isBodyCanScroll) {
-        return recyclerView.init(context, isBodyCanScroll);
+    public View init(Context context) {
+        return recyclerView.init(context);
     }
 
     @Override
@@ -398,9 +397,5 @@ public abstract class PullableRecyclerViewDialog<T, H extends ItemViewHolderAbs>
     @Override
     public void onItemClick(H holder, int position, T item) {
 
-    }
-
-    public void setBodyCanScroll(boolean bodyCanScroll) {
-        isBodyCanScroll = bodyCanScroll;
     }
 }
