@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.RelativeLayout;
 
 import com.fpliu.newton.ui.recyclerview.adapter.ItemAdapterEx;
 import com.fpliu.newton.ui.recyclerview.holder.ItemViewHolderAbs;
@@ -50,6 +52,16 @@ public abstract class PullableRecyclerViewDialog2<T, H extends ItemViewHolderAbs
         };
         if (headerView != null) {
             itemAdapter.addHeaderView(headerView);
+            headerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    headerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    View stateView = getPullableViewContainer().getStateView();
+                    RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+                    lp.topMargin = headerView.getHeight();
+                    stateView.setLayoutParams(lp);
+                }
+            });
         }
         if (footerView != null) {
             itemAdapter.addFootView(footerView);
