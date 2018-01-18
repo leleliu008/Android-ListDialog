@@ -360,8 +360,8 @@ public abstract class PullableListDialog<T> extends CustomDialog
     }
 
     @Override
-    public void setViewBeforeBody(int layoutId) {
-        list.setViewBeforeBody(layoutId);
+    public View setViewBeforeBody(int layoutId) {
+        return list.setViewBeforeBody(layoutId);
     }
 
     @Override
@@ -370,8 +370,8 @@ public abstract class PullableListDialog<T> extends CustomDialog
     }
 
     @Override
-    public void setViewAfterBody(int layoutId) {
-        list.setViewAfterBody(layoutId);
+    public View setViewAfterBody(int layoutId) {
+        return list.setViewAfterBody(layoutId);
     }
 
     @Override
