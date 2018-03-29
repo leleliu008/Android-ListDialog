@@ -16,7 +16,7 @@ import com.fpliu.newton.ui.pullable.PullableViewContainer;
 import com.fpliu.newton.ui.pullable.RefreshOrLoadMoreCallback;
 import com.fpliu.newton.ui.recyclerview.OnItemClickListener;
 import com.fpliu.newton.ui.recyclerview.adapter.ItemAdapter;
-import com.fpliu.newton.ui.recyclerview.holder.ItemViewHolderAbs;
+import com.fpliu.newton.ui.recyclerview.holder.ItemViewHolder;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,12 +27,12 @@ import java.util.List;
  *
  * @author 792793182@qq.com 2016-06-06.
  */
-public abstract class PullableRecyclerViewDialog<T, H extends ItemViewHolderAbs> extends CustomDialog
-        implements IPullable<T, RecyclerView>, IRecyclerView<T, H>,
-        OnItemClickListener<T, H>, RefreshOrLoadMoreCallback<RecyclerView> {
+public abstract class PullableRecyclerViewDialog<T> extends CustomDialog
+    implements IPullable<T, RecyclerView>, IRecyclerView<T>,
+    OnItemClickListener<T>, RefreshOrLoadMoreCallback<RecyclerView> {
 
     private IPullable<T, RecyclerView> pullable;
-    private IRecyclerView<T, H> recyclerView;
+    private IRecyclerView<T> recyclerView;
 
     public PullableRecyclerViewDialog(Activity activity) {
         super(activity);
@@ -47,16 +47,16 @@ public abstract class PullableRecyclerViewDialog<T, H extends ItemViewHolderAbs>
         super.onCreate(savedInstanceState);
 
         pullable = new PullableRecyclerViewImpl<>();
-        recyclerView = (IRecyclerView<T, H>) pullable;
+        recyclerView = (IRecyclerView<T>) pullable;
         setContentView(recyclerView.init(getActivity()));
-        setItemAdapter(new ItemAdapter<T, H>(null) {
+        setItemAdapter(new ItemAdapter<T>(null) {
 
             @Override
-            public H onCreateViewHolder(ViewGroup parent, int viewType) {
-                return PullableRecyclerViewDialog.this.onCreateViewHolder(parent, viewType);
+            public int onBindLayout(ViewGroup parent, int viewType) {
+                return PullableRecyclerViewDialog.this.onBindLayout(parent, viewType);
             }
 
-            public void onBindViewHolder(H holder, int position, T item) {
+            public void onBindViewHolder(ItemViewHolder holder, int position, T item) {
                 PullableRecyclerViewDialog.this.onBindViewHolder(holder, position, item);
             }
 
@@ -245,12 +245,12 @@ public abstract class PullableRecyclerViewDialog<T, H extends ItemViewHolderAbs>
     }
 
     @Override
-    public void setItemAdapter(ItemAdapter<T, H> itemAdapter) {
+    public void setItemAdapter(ItemAdapter<T> itemAdapter) {
         recyclerView.setItemAdapter(itemAdapter);
     }
 
     @Override
-    public ItemAdapter<T, H> getItemAdapter() {
+    public ItemAdapter<T> getItemAdapter() {
         return recyclerView.getItemAdapter();
     }
 
@@ -390,12 +390,12 @@ public abstract class PullableRecyclerViewDialog<T, H extends ItemViewHolderAbs>
     }
 
     @Override
-    public void setOnItemClickListener(OnItemClickListener<T, H> onItemClickListener) {
+    public void setOnItemClickListener(OnItemClickListener<T> onItemClickListener) {
         recyclerView.setOnItemClickListener(onItemClickListener);
     }
 
     @Override
-    public void onItemClick(H holder, int position, T item) {
+    public void onItemClick(ItemViewHolder holder, int position, T item) {
 
     }
 }

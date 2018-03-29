@@ -12,16 +12,16 @@ import com.fpliu.newton.ui.list.IRecyclerView;
 import com.fpliu.newton.ui.list.PullableRecyclerViewImpl;
 import com.fpliu.newton.ui.recyclerview.OnItemClickListener;
 import com.fpliu.newton.ui.recyclerview.adapter.ItemAdapter;
-import com.fpliu.newton.ui.recyclerview.holder.ItemViewHolderAbs;
+import com.fpliu.newton.ui.recyclerview.holder.ItemViewHolder;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class RecyclerViewDialog<T, H extends ItemViewHolderAbs> extends CustomDialog
-        implements IRecyclerView<T, H>, OnItemClickListener<T, H> {
+public abstract class RecyclerViewDialog<T> extends CustomDialog
+    implements IRecyclerView<T>, OnItemClickListener<T> {
 
-    private IRecyclerView<T, H> recyclerView;
+    private IRecyclerView<T> recyclerView;
 
     public RecyclerViewDialog(Activity activity) {
         super(activity);
@@ -38,14 +38,14 @@ public abstract class RecyclerViewDialog<T, H extends ItemViewHolderAbs> extends
         pullableRecyclerView.canPullDown(false);
         pullableRecyclerView.canPullUp(false);
         pullableRecyclerView.getPullableViewContainer().getStateView().setVisibility(View.GONE);
-        setItemAdapter(new ItemAdapter<T, H>(null) {
+        setItemAdapter(new ItemAdapter<T>(null) {
 
             @Override
-            public H onCreateViewHolder(ViewGroup parent, int viewType) {
-                return RecyclerViewDialog.this.onCreateViewHolder(parent, viewType);
+            public int onBindLayout(ViewGroup parent, int viewType) {
+                return RecyclerViewDialog.this.onBindLayout(parent, viewType);
             }
 
-            public void onBindViewHolder(H holder, int position, T item) {
+            public void onBindViewHolder(ItemViewHolder holder, int position, T item) {
                 RecyclerViewDialog.this.onBindViewHolder(holder, position, item);
             }
 
@@ -148,17 +148,17 @@ public abstract class RecyclerViewDialog<T, H extends ItemViewHolderAbs> extends
     }
 
     @Override
-    public void setOnItemClickListener(OnItemClickListener<T, H> onItemClickListener) {
+    public void setOnItemClickListener(OnItemClickListener<T> onItemClickListener) {
         recyclerView.setOnItemClickListener(onItemClickListener);
     }
 
     @Override
-    public void setItemAdapter(ItemAdapter<T, H> itemAdapter) {
+    public void setItemAdapter(ItemAdapter<T> itemAdapter) {
         recyclerView.setItemAdapter(itemAdapter);
     }
 
     @Override
-    public ItemAdapter<T, H> getItemAdapter() {
+    public ItemAdapter<T> getItemAdapter() {
         return recyclerView.getItemAdapter();
     }
 
@@ -218,7 +218,7 @@ public abstract class RecyclerViewDialog<T, H extends ItemViewHolderAbs> extends
     }
 
     @Override
-    public void onItemClick(H holder, int position, T item) {
+    public void onItemClick(ItemViewHolder holder, int position, T item) {
 
     }
 }
