@@ -16,10 +16,13 @@ abstract class RecyclerViewDialogProxy<T>(activity: Activity, private val recycl
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(recyclerView.init(activity))
-        recyclerView.canPullDown(false)
-        recyclerView.canPullUp(false)
-        recyclerView.pullableViewContainer?.stateView?.visibility = View.GONE
+        with(recyclerView) {
+            setContentView(init(activity))
+            canPullDown(false)
+            canPullUp(false)
+            pullableViewContainer?.stateView?.visibility = View.GONE
+        }
+
         itemAdapter = object : ItemAdapter<T>(null) {
 
             override fun onBindLayout(parent: ViewGroup, viewType: Int): Int {
