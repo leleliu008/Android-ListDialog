@@ -2,9 +2,9 @@ package com.fpliu.newton.ui.dialog.list
 
 import android.app.Activity
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import com.fpliu.newton.ui.dialog.CustomDialog
+import com.fpliu.newton.ui.list.MyNestedScrollView
 import com.fpliu.newton.ui.list.IPullableScrollViewRecyclerView
 import com.fpliu.newton.ui.pullable.RefreshOrLoadMoreCallback
 import com.fpliu.newton.ui.recyclerview.OnItemClickListener
@@ -16,7 +16,7 @@ import com.fpliu.newton.ui.recyclerview.holder.ItemViewHolder
  *
  * @author 792793182@qq.com 2016-06-06.
  */
-abstract class PullableScrollViewRecyclerViewDialogProxy<T>(activity: Activity, private val pullableScrollViewRecyclerView: IPullableScrollViewRecyclerView<T>) : CustomDialog(activity), IPullableScrollViewRecyclerView<T> by pullableScrollViewRecyclerView, OnItemClickListener<T>, RefreshOrLoadMoreCallback<android.support.v4.widget.NestedScrollView> {
+abstract class PullableScrollViewRecyclerViewDialogProxy<T>(activity: Activity, private val pullableScrollViewRecyclerView: IPullableScrollViewRecyclerView<T>) : CustomDialog(activity), IPullableScrollViewRecyclerView<T> by pullableScrollViewRecyclerView, OnItemClickListener<T>, RefreshOrLoadMoreCallback<MyNestedScrollView> {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +32,14 @@ abstract class PullableScrollViewRecyclerViewDialogProxy<T>(activity: Activity, 
                 val itemViewHolder = super.onCreateViewHolder(parent, viewType)
                 this@PullableScrollViewRecyclerViewDialogProxy.onCreateViewHolder(itemViewHolder, parent, viewType)
                 return itemViewHolder
+            }
+
+            override fun onBindViewHolder(holder: ItemViewHolder, position: Int, payloads: MutableList<Any>) {
+                if (payloads.isEmpty()) {
+                    onBindViewHolder(holder, position)
+                } else {
+                    this@PullableScrollViewRecyclerViewDialogProxy.onBindViewHolder(holder, position, payloads)
+                }
             }
 
             override fun onBindViewHolder(holder: ItemViewHolder, position: Int, item: T) {
@@ -51,6 +59,10 @@ abstract class PullableScrollViewRecyclerViewDialogProxy<T>(activity: Activity, 
     }
 
     override fun onItemClick(holder: ItemViewHolder, position: Int, item: T) {
+
+    }
+
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int, payloads: MutableList<Any>) {
 
     }
 }

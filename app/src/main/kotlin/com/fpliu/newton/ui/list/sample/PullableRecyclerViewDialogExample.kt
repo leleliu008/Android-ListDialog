@@ -2,11 +2,13 @@ package com.fpliu.newton.ui.list.sample
 
 import android.app.Activity
 import android.graphics.Color
-import android.os.Bundle
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.fpliu.newton.log.Logger
 import com.fpliu.newton.ui.base.UIUtil
-import com.fpliu.newton.ui.dialog.list.RecyclerViewDialog
+import com.fpliu.newton.ui.dialog.list.PullableRecyclerViewDialog
+import com.fpliu.newton.ui.pullable.PullType
+import com.fpliu.newton.ui.pullable.PullableViewContainer
 import com.fpliu.newton.ui.recyclerview.holder.ItemViewHolder
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -16,10 +18,10 @@ import io.reactivex.schedulers.Schedulers
  * RecyclerViewHelper使用示例
  * @author 792793182@qq.com 2018-03-28.
  */
-class RecyclerViewDialogExample(activity: Activity) : RecyclerViewDialog<Pair<Int, String>>(activity) {
+class PullableRecyclerViewDialogExample(activity: Activity) : PullableRecyclerViewDialog<Pair<Int, String>>(activity) {
 
     companion object {
-        private val TAG = RecyclerViewDialogExample::class.java.simpleName
+        private val TAG = PullableRecyclerViewDialogExample::class.java.simpleName
     }
 
     init {
@@ -28,26 +30,21 @@ class RecyclerViewDialogExample(activity: Activity) : RecyclerViewDialog<Pair<In
         setWindowHeight(UIUtil.getScreenHeight(activity) / 2)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        requestData()
-    }
-
-    private fun requestData() {
+    override fun onRefreshOrLoadMore(pullableViewContainer: PullableViewContainer<RecyclerView>?, pullType: PullType, pageNum: Int, pageSize: Int) {
         Observable
             .just("")
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .map {
                 ArrayList<Pair<Int, String>>().apply {
-                    repeat(10, {
+                    repeat(10) {
                         add(Pair(it, it.toString()))
-                    })
+                    }
                 }
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                items = it
+                finishRequestSuccessWithErrorImageAndMessageIfItemsEmpty(pullType, it, R.drawable.ic_warnning, "暂无数据")
             }, { Logger.e(TAG, "", it) })
     }
 

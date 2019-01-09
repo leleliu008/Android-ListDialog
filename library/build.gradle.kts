@@ -1,4 +1,5 @@
 import com.fpliu.gradle.bintrayUploadExtension
+import java.util.Properties
 
 buildscript {
     repositories {
@@ -29,20 +30,19 @@ plugins {
 }
 
 android {
-    compileSdkVersion(26)
-    buildToolsVersion("26.0.2")
+    compileSdkVersion(28)
 
     defaultConfig {
-        minSdkVersion(14)
-        targetSdkVersion(25)
+        minSdkVersion(18)
+        targetSdkVersion(28)
         versionCode = 1
-        versionName = "1.0.1"
+        versionName = "2.0.0"
     }
 
     sourceSets {
         getByName("main") {
             jniLibs.srcDir("src/main/libs")
-            aidl.srcDirs("src/main/java")
+            java.srcDirs("src/main/kotlin")
         }
     }
 
@@ -64,17 +64,9 @@ android {
 }
 
 dependencies {
-    api(fileTree(mapOf(Pair("dir", "src/main/libs"), Pair("include", "*.jar"))))
-
-    //http://kotlinlang.org/docs/reference/using-gradle.html#configuring-dependencies
-    api("org.jetbrains.kotlin:kotlin-stdlib:1.2.21")
-
-    api("com.scwang.smartrefresh:SmartRefreshLayout:1.0.2-alpha-8")
+    //https://bintray.com/fpliu/newton
+    api("com.fpliu:Android-List:2.0.0")
     api("com.fpliu:Android-CustomDialog:1.0.0")
-    api("com.fpliu:Android-CustomDrawable:1.0.0")
-    api("com.fpliu:Android-Pullable:1.0.0")
-    api("com.fpliu:Android-RecyclerViewHelper:1.0.0")
-    api("com.fpliu:Android-List:1.0.1")
 }
 
 // 这里是groupId,必须填写,一般填你唯一的包名
@@ -84,6 +76,7 @@ group = "com.fpliu"
 version = android.defaultConfig.versionName ?: "1.0.0"
 
 val rootProjectName: String = rootProject.name
+val properties = Properties().apply { load(project.rootProject.file("local.properties").inputStream()) }
 
 bintrayUploadExtension {
     developerName = "leleliu008"
@@ -95,6 +88,6 @@ bintrayUploadExtension {
     bintrayUserName = "fpliu"
     bintrayOrganizationName = "fpliu"
     bintrayRepositoryName = "newton"
-    bintrayApiKey = "xxx"
+    bintrayApiKey = properties.getProperty("bintray.apikey")
 }
 

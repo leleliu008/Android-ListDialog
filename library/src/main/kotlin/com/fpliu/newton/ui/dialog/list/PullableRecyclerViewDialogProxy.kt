@@ -2,8 +2,8 @@ package com.fpliu.newton.ui.dialog.list
 
 import android.app.Activity
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.fpliu.newton.ui.dialog.CustomDialog
 import com.fpliu.newton.ui.list.IPullableRecyclerView
 import com.fpliu.newton.ui.pullable.RefreshOrLoadMoreCallback
@@ -34,6 +34,14 @@ abstract class PullableRecyclerViewDialogProxy<T>(activity: Activity, private va
                 return itemViewHolder
             }
 
+            override fun onBindViewHolder(holder: ItemViewHolder, position: Int, payloads: MutableList<Any>) {
+                if (payloads.isEmpty()) {
+                    onBindViewHolder(holder, position)
+                } else {
+                    this@PullableRecyclerViewDialogProxy.onBindViewHolder(holder, position, payloads)
+                }
+            }
+
             override fun onBindViewHolder(holder: ItemViewHolder, position: Int, item: T) {
                 this@PullableRecyclerViewDialogProxy.onBindViewHolder(holder, position, item)
             }
@@ -51,6 +59,10 @@ abstract class PullableRecyclerViewDialogProxy<T>(activity: Activity, private va
     }
 
     override fun onItemClick(holder: ItemViewHolder, position: Int, item: T) {
+
+    }
+
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int, payloads: MutableList<Any>) {
 
     }
 }

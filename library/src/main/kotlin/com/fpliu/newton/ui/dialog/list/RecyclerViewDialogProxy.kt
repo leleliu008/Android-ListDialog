@@ -35,6 +35,14 @@ abstract class RecyclerViewDialogProxy<T>(activity: Activity, private val recycl
                 return itemViewHolder
             }
 
+            override fun onBindViewHolder(holder: ItemViewHolder, position: Int, payloads: MutableList<Any>) {
+                if (payloads.isEmpty()) {
+                    onBindViewHolder(holder, position)
+                } else {
+                    this@RecyclerViewDialogProxy.onBindViewHolder(holder, position, payloads)
+                }
+            }
+
             override fun onBindViewHolder(holder: ItemViewHolder, position: Int, item: T) {
                 this@RecyclerViewDialogProxy.onBindViewHolder(holder, position, item)
             }
@@ -51,6 +59,10 @@ abstract class RecyclerViewDialogProxy<T>(activity: Activity, private val recycl
     }
 
     override fun onItemClick(holder: ItemViewHolder, position: Int, item: T) {
+
+    }
+
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int, payloads: MutableList<Any>) {
 
     }
 }

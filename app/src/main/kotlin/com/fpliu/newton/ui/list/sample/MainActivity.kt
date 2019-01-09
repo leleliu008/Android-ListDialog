@@ -29,9 +29,9 @@ class MainActivity : RecyclerViewActivity<String>() {
             .observeOn(Schedulers.io())
             .map {
                 ArrayList<String>().apply {
-                    repeat(2, {
+                    repeat(2) {
                         add(it.toString())
-                    })
+                    }
                 }
             }
             .observeOn(AndroidSchedulers.mainThread())
